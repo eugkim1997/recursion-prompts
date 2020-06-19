@@ -177,6 +177,15 @@ var multiply = function(x, y) {
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
 var divide = function(x, y) {
+    if (y === 0) {
+        return NaN;
+    } else if (y < 0) {
+        return divide(x, -y);
+    } else if (x < y) {
+        return 0;
+    } else {
+        return 1 + divide(x - y, y);
+    }
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
@@ -185,6 +194,13 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+    if (x < 0 || y < 0) {
+        return null;
+    } else if (y === 0) {
+        return x;
+    } else {
+        return gcd(y, x % y);
+    }
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -192,11 +208,27 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+    if (str1.length === 0 && str2.length === 0) {
+        return true;
+    } else if ((str1.length === 1 && str2.length === 1) && str1[0] === str2[0]) {
+        return true;
+    } else if (str1[0] !== str2[0]) {
+        return false;
+    } else {
+        return compareStr(str1.substring(1), str2.substring(1));
+    }
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
+    if (str.length === 0) {
+        return [];
+    } else if (str.length === 1) {
+        return [str[0]];
+    } else {
+        return [str[0]].concat(createArray(str.substring(1)));
+    }
 };
 
 // 17. Reverse the order of an array
